@@ -147,6 +147,14 @@ public class Builder {
 
         applyDeleteReceiver(builder);
         applyContentReceiver(builder);
+		try {
+      JSONObject j = new JSONObject(options.getDict().getString("data"));
+      if(j.has("reschedule")){
+        applySnoozeReceiver(builder);
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
 
         return new Notification(context, options, builder, triggerReceiver);
     }
@@ -196,5 +204,34 @@ public class Builder {
 
         builder.setContentIntent(contentIntent);
     }
+	
+	private void applySnoozeReceiver(NotificationCompat.Builder builder) {
+
+    Intent intent = new Intent(context, SnoozeReceiver.class)
+      .setAction(options.getIdStr())
+      .putExtra(Options.EXTRA, options.toString());
+
+    PendingIntent snoozeIntent = PendingIntent.getBroadcast(
+      context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+    builder.addAction(0, "Snooze", snoozeIntent);
+
+   // builder.setDeleteIntent(deleteIntent);
+
+
+  /*
+    //Create an Intent for the BroadcastReceiver
+    Intent buttonIntent = new Intent(context, SnoozeReceiver.class);
+
+    Log.e("Bimal", ":::::::::::::" +  options.getId());
+    buttonIntent.putExtra("notificationId", options.getId());
+
+//Create the PendingIntent
+    PendingIntent btPendingIntent = PendingIntent.getBroadcast(context, 0, buttonIntent, 0);
+    builder.addAction(0, "Snooze", btPendingIntent);
+    builder.setAutoCancel(true);
+    */
+
+  }
 
 }
