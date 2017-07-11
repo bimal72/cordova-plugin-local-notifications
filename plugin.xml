@@ -97,6 +97,9 @@
             <receiver
                 android:name="de.appplant.cordova.plugin.localnotification.ClearReceiver"
                 android:exported="false" />
+			<receiver
+                android:name="de.appplant.cordova.plugin.localnotification.SnoozeReceiver"
+                android:exported="false" />	
 
             <activity
                 android:name="de.appplant.cordova.plugin.localnotification.ClickActivity"
