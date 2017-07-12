@@ -42,7 +42,7 @@ import java.util.Date;
 public class Options {
 
     // Key name for bundled extras
-    static final String EXTRA = "NOTIFICATION_OPTIONS";
+    public static final String EXTRA = "NOTIFICATION_OPTIONS";
 
     // The original JSON object
     private JSONObject options = new JSONObject();
