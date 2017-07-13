@@ -33,7 +33,12 @@ public class SnoozeReceiver extends BroadcastReceiver {
     try {
       String data = bundle.getString(Options.EXTRA);
       options = new JSONObject(data);
-      options.put("reschedule", true);
+      String type = bundle.getString("type");
+      if(type.equals("snooze")){
+        options.put("reschedule", true);
+      } else if(type.equals("dismiss")){
+        options.put("dismiss", true);
+      }
     } catch (JSONException e) {
       e.printStackTrace();
       return;
@@ -41,7 +46,7 @@ public class SnoozeReceiver extends BroadcastReceiver {
 
     Notification notification =
       new Builder(context, options).build();
-    notification.clear();
+    notification.forceClear();
     LocalNotification.fireEvent("schedule", notification);
 
   }

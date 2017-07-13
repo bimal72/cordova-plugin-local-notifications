@@ -210,8 +210,6 @@ public class Builder {
 
   private void applySnoozeReceiver(NotificationCompat.Builder builder) {
 
-    if (clearReceiver == null)
-      return;
 
     String snoozeText = "Snooze";
     String dismissText = "Dismiss";
@@ -227,17 +225,19 @@ public class Builder {
       e.printStackTrace();
     }
 
-    Intent clearIntent = new Intent(context, clearReceiver)
+    Intent clearIntent = new Intent(context, SnoozeReceiver.class)
       .setAction(options.getIdStr())
-      .putExtra(Options.EXTRA, options.toString());
+      .putExtra(Options.EXTRA, options.toString())
+      .putExtra("type", "dismiss");
 
     PendingIntent deleteIntent = PendingIntent.getBroadcast(
       context, 0, clearIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
+/*
     Resources resources = context.getResources();
 
     final int resourceId = resources.getIdentifier("ic_action_remove", "drawable",
       context.getPackageName());
+      */
 
    // Log.e("bimal", "::"+resourceId);
 
@@ -247,10 +247,11 @@ public class Builder {
 
     Intent intent = new Intent(context, SnoozeReceiver.class)
       .setAction(options.getIdStr())
-      .putExtra(Options.EXTRA, options.toString());
+      .putExtra(Options.EXTRA, options.toString())
+      .putExtra("type", "snooze");
 
     PendingIntent snoozeIntent = PendingIntent.getBroadcast(
-      context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+      context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
     builder.addAction(0, snoozeText, snoozeIntent);
 
