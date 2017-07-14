@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -83,7 +84,7 @@ public class SnoozeReceiver extends BroadcastReceiver {
           }
         }
 
-        optionsSnooze.put("at", optionsSnooze.getLong("at") + snoozeDuration);
+        optionsSnooze.put("at", (System.currentTimeMillis()/1000) + snoozeDuration);
         optionsSnooze.put("id", 1000);
         //optionsSnooze.put("text", "bimal................");
         Notification notification =
