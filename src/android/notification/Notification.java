@@ -191,11 +191,6 @@ public class Notification {
       getNotMgr().cancel(getId());
   }
 
-  public void forceClear() {
-    unpersist();
-    getNotMgr().cancel(getId());
-  }
-
   /**
    * Cancel the local notification.
    * <p>
